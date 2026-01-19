@@ -1,0 +1,111 @@
+# sweet-home-menu<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Sweet Home - Menu Bánh Ngọt</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff5f7;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      text-align: center;
+      background: #ffb6c1;
+      padding: 20px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 40px;
+      color: #b30059;
+    }
+    header p {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #5a2a2a;
+    }
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding: 30px;
+    }
+    .cake {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .cake h3 {
+      margin: 10px 0 5px;
+      color: #b30059;
+    }
+    .price {
+      font-weight: bold;
+      color: #333;
+    }
+    .contact {
+      background: #ffe4ec;
+      padding: 20px;
+      text-align: center;
+    }
+    .contact p {
+      margin: 5px 0;
+    }
+    .form {
+      text-align: center;
+      padding: 20px;
+    }
+    input, textarea {
+      width: 300px;
+      padding: 8px;
+      margin: 5px 0;
+    }
+    button {
+      padding: 8px 20px;
+      background: #ff69b4;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Sweet Home</h1>
+  <p>Sweet Home là nơi những chiếc bánh ngọt được tạo nên từ sự yêu thương và chăm chút.<br>
+  Mỗi chiếc bánh đều mang hương vị thơm ngon, mềm mại và ấm áp,<br>
+  giúp bạn cảm nhận được niềm vui nhỏ xinh trong từng khoảnh khắc ngọt ngào.</p>
+</header>
+
+<div class="menu">
+  <div class="cake"><h3>Bánh vòng</h3><div class="price">12.000₫</div></div>
+  <div class="cake"><h3>Bánh sừng bò</h3><div class="price">20.000₫</div></div>
+  <div class="cake"><h3>Bánh xoắn</h3><div class="price">15.000₫</div></div>
+  <div class="cake"><h3>Bánh mì ngọt</h3><div class="price">17.000₫</div></div>
+  <div class="cake"><h3>Bánh cupcake</h3><div class="price">15.000₫</div></div>
+  <div class="cake"><h3>Bánh flan</h3><div class="price">10.000₫</div></div>
+  <div class="cake"><h3>Bánh kem dâu</h3><div class="price">25.000₫</div></div>
+  <div class="cake"><h3>Tiramisu</h3><div class="price">30.000₫</div></div>
+</div>
+
+<div class="contact">
+  <p>📍 Địa chỉ: Trường THPT Hồ Nghinh</p>
+  <p>📞 Điện thoại: 0230356789</p>
+  <p>📧 Email: Sweethome@gmail.com</p>
+</div>
+
+<div class="form">
+  <h3>Liên hệ đặt bánh</h3>
+  <input type="text" placeholder="Tên của bạn"><br>
+  <input type="email" placeholder="Email của bạn"><br>
+  <textarea rows="4" placeholder="Tin nhắn của bạn"></textarea><br>
+  <button>Gửi</button>
+</div>
+
+</body>
+</html>
