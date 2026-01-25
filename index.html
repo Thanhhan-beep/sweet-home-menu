@@ -1,141 +1,14 @@
 
-
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<title>SWEET HOME - Tiệm bánh</title>
-
-<style>
-body{
-    font-family: Arial, sans-serif;
-    background:#fff6f0;
-    margin:0;
-}
-header, footer{
-    background:#f7b6c2;
-    color:white;
-    text-align:center;
-    padding:20px;
-}
-section{padding:20px}
-
-.products{
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-}
-.product{
-    display:flex;
-    background:white;
-    padding:15px;
-    border-radius:12px;
-    align-items:center;
-}
-.product img{
-    width:150px;
-    height:150px;
-    object-fit:cover;
-    border-radius:10px;
-    margin-right:15px;
-}
-.info{flex:1}
-.info h3{
-    margin:0;
-    color:#d45a7a;
-}
-.review{
-    font-size:14px;
-    color:#777;
-    margin:5px 0;
-}
-.stars{color:gold}
-.price{font-weight:bold}
-
-select,input{
-    width:100%;
-    padding:6px;
-    margin-top:5px;
-}
-
-.controls button{
-    background:#f4a6b8;
-    color:white;
-    border:none;
-    padding:6px 10px;
-    border-radius:5px;
-    cursor:pointer;
-    margin:2px;
-}
-
-.cart,.order{
-    background:white;
-    padding:15px;
-    border-radius:10px;
-    margin-top:20px;
-}
-
-.chat{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-}
-.chat a{
-    background:#0084ff;
-    color:white;
-    padding:14px;
-    border-radius:50%;
-    text-decoration:none;
-    font-size:20px;
-}
-</style>
-</head>
-
-<body>
-
-<header>
-    <h1>🍰 SWEET HOME 🍰</h1>
-    <p><i>SWEET HOME – nơi hương vị ngọt ngào mang cảm giác ấm áp như trở về nhà.</i></p>
-</header>
-
-<section>
-
-<h2>Menu bánh</h2>
-<div id="menu" class="menu"></div>
-
-<div class="cart">
-    <h2>🛒 Giỏ hàng</h2>
-    <ul id="cart"></ul>
-    <p><b>Tổng tiền:</b> <span id="total">0</span> đ</p>
-    <p><b>🎁 Điểm tích lũy:</b> <span id="points">0</span> điểm</p>
-</div>
-
-<div class="order">
-    <h2>📋 Thông tin đặt hàng</h2>
-    <input placeholder="Họ tên">
-    <input placeholder="Số điện thoại">
-    <input placeholder="Địa chỉ nhận hàng">
-
-    <select>
-        <option>Thanh toán khi nhận hàng</option>
-        <option>Chuyển khoản ngân hàng</option>
-        <option>Ví điện tử (Momo/ZaloPay)</option>
-    </select>
-
-    <button onclick="order()">Đặt bánh</button>
-    <p id="orderInfo"></p>
-</div>
-
 </section>
 
 <footer>
-    <p>📧 Email: sweethome2026@gmail.con</p>
+    <p>📧 Email: sweethome2026@gmail.com</p>
     <p>📞 Số điện thoại: 0230356789</p>
     <p>
         📍 
         <a href="https://www.google.com/maps/search/Trường+THPT+Hồ+Nghinh"
            target="_blank" style="color:white;">
-           Ấn vào đây để đến tiệm chúng mình nhé 
+           Ấn vào đây để đến tiệm chúng mình nhé ⇒ Trường THPT Hồ Nghinh
         </a>
     </p>
 </footer>
@@ -145,15 +18,15 @@ select,input{
 </div>
 
 <script>
- const products = [
- {name:"Bánh xoắn", price:15000, img:"./banhxoan.jpg", review:"Giòn nhẹ – thơm bơ"},
- {name:"Bánh sừng bò", price:20000, img:"./banhsungbo.jpg", review:"Mềm xốp – béo ngậy"},
- {name:"Bánh ngọt", price:17000, img:"./banhmingot.jpg", review:"Ngọt dịu – dễ ăn"},
- {name:"Bánh cupcake", price:15000, img:"./banhcupcake.jpg", review:"Trang trí xinh xắn"},
- {name:"Bánh kem dâu", price:25000, img:"./banhkemdau.jpg", review:"Dâu tươi mát"},
- {name:"Bánh flan", price:12000, img:"./banhflan.jpg", review:"Mềm mịn béo"},
- {name:"Bánh tiramisu", price:30000, img:"./tiramisu.jpg", review:"Đậm vị cà phê"},
- {name:"Bánh vòng", price:18000, img:"./banhvong.jpg", review:"Giòn nhẹ dễ ăn"}
+const products = [
+ {name:"Bánh xoắn", price:15000, img:"banhxoan.jpg", review:"Giòn nhẹ – thơm bơ"},
+ {name:"Bánh sừng bò", price:20000, img:"banhsungbo.jpg", review:"Mềm xốp – béo ngậy"},
+ {name:"Bánh ngọt", price:17000, img:"banhmingot.jpg", review:"Ngọt dịu – dễ ăn"},
+ {name:"Bánh cupcake", price:15000, img:"banhcupcake.jpg", review:"Trang trí xinh xắn"},
+ {name:"Bánh kem dâu", price:25000, img:"banhkemdau.jpg", review:"Dâu tươi mát"},
+ {name:"Bánh flan", price:12000, img:"banhflan.jpg", review:"Mềm mịn béo"},
+ {name:"Bánh tiramisu", price:30000, img:"tiramisu.jpg", review:"Đậm vị cà phê"},
+ {name:"Bánh vòng", price:18000, img:"banhvong.jpg", review:"Giòn nhẹ dễ ăn"}
 ];
 
 let cart=[], total=0, points=0;
@@ -162,34 +35,25 @@ const menu=document.getElementById("menu");
 products.forEach((p,i)=>{
 menu.innerHTML+=`
 <div class="product">
-<img src="${p.img}">
-<div class="info">
-<h3>${p.name}</h3>
-<div class="stars">★★★★★</div>
-<p class="review">${p.review}</p>
+    <img src="${p.img}">
+    <div class="info">
+        <h3>${p.name}</h3>
+        <div class="stars">★★★★★</div>
+        <p class="review">${p.review}</p>
 
-<label>Chọn vị:</label>
-<select id="flavor${i}">
-    <option>Vani</option>
-    <option>Socola</option>
-    <option>Dâu</option>
-    <option>Matcha</option>
-</select>
+        <label>Chọn size:</label>
+        <select id="size${i}">
+            <option>Nhỏ</option>
+            <option>Vừa (+5.000đ)</option>
+            <option>Lớn (+10.000đ)</option>
+        </select>
 
-<label>Chọn size:</label>
-<select id="size${i}">
-    <option>Nhỏ</option>
-    <option>Vừa (+5.000đ)</option>
-    <option>Lớn (+10.000đ)</option>
-</select>
+        <p class="price">${p.price.toLocaleString()} đ</p>
+    </div>
 
-<p class="price">${p.price} đ</p>
-</div>
-
-<div class="controls">
-<button onclick="add(${i})">+</button>
-<button onclick="remove(${i})">−</button>
-</div>
+    <div class="controls">
+        <button onclick="add(${i})">+</button>
+    </div>
 </div>`;
 });
 
@@ -204,25 +68,29 @@ function add(i){
     points++;
     render();
 }
-function remove(i){
-    if(cart.length>0){
-        cart.pop();
-        total=Math.max(0,total-products[i].price);
-        points=Math.max(0,points-1);
-        render();
-    }
-}
+
 function render(){
     document.getElementById("cart").innerHTML=
         cart.map(c=>`<li>${c}</li>`).join("");
-    document.getElementById("total").innerText=total;
+    document.getElementById("total").innerText=total.toLocaleString();
     document.getElementById("points").innerText=points;
 }
+
 function order(){
-    document.getElementById("orderInfo").innerText=
-    "🎉 Đặt bánh thành công! SWEET HOME sẽ liên hệ bạn sớm nhất.";
+    document.getElementById("invoice").style.display="block";
+
+    document.getElementById("invName").innerText=document.getElementById("name").value;
+    document.getElementById("invPhone").innerText=document.getElementById("phone").value;
+    document.getElementById("invAddress").innerText=document.getElementById("address").value;
+    document.getElementById("invPayment").innerText=document.getElementById("payment").value;
+
+    document.getElementById("invItems").innerHTML=
+    cart.map(c=>`<li>${c}</li>`).join("");
+
+    document.getElementById("invTotal").innerText=total.toLocaleString();
+    document.getElementById("invPoints").innerText=points;
 }
 </script>
 
 </body>
-</html>
+</html>    
