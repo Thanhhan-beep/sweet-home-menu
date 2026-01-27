@@ -6,6 +6,14 @@
 <meta charset="UTF-8">
 <title>SWEET HOME - Tiệm bánh</title>
 
+<!-- EMAILJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+(function(){
+  emailjs.init("SyeMjoVW3jqzlW9dW"); // PUBLIC KEY
+})();
+</script>
+
 <style>
 body{
     font-family: Arial, sans-serif;
@@ -52,7 +60,12 @@ section{padding:20px}
 .stars{color:gold}
 .price{font-weight:bold}
 
-select,input{
+select{
+    width:120px;
+    padding:6px;
+    margin-top:5px;
+}
+input{
     width:100%;
     padding:6px;
     margin-top:5px;
@@ -73,6 +86,22 @@ select,input{
     padding:15px;
     border-radius:10px;
     margin-top:20px;
+}
+
+.remove{
+    color:red;
+    cursor:pointer;
+    margin-left:10px;
+    font-weight:bold;
+}
+
+#qrBox{
+    display:none;
+    text-align:center;
+    border:1px dashed #f4a6b8;
+    padding:10px;
+    border-radius:10px;
+    margin-top:10px;
 }
 
 .chat{
@@ -112,15 +141,23 @@ select,input{
 
 <div class="order">
     <h2>📋 Thông tin đặt hàng</h2>
-    <input placeholder="Họ tên">
-    <input placeholder="Số điện thoại">
-    <input placeholder="Địa chỉ nhận hàng">
+    <input id="customerName" placeholder="Họ tên">
+    <input id="customerPhone" placeholder="Số điện thoại">
+    <input id="customerAddress" placeholder="Địa chỉ nhận hàng">
 
-    <select>
+    <select id="payment">
         <option>Thanh toán khi nhận hàng</option>
         <option>Chuyển khoản ngân hàng</option>
         <option>Ví điện tử (Momo/ZaloPay)</option>
     </select>
+
+    <div id="qrBox">
+        <p><b>📌 Quét QR để chuyển khoản</b></p>
+        <img src="thanhtoan.jpg" width="180">
+        <p><b>Chủ TK:</b> SWEET HOME</p>
+        <p><b>STK:</b> 686868</p>
+<p><b>Số tiền:</b> <span id="qrMoney">0</span> đ</p>
+    </div>
 
     <button onclick="order()">Đặt bánh</button>
     <p id="orderInfo"></p>
@@ -129,15 +166,15 @@ select,input{
 </section>
 
 <footer>
-    <p>📧 Email: sweethome2026@gmail.com</p>
-    <p>📞 Số điện thoại: 0230356789</p>
-    <p>
-        📍 
-        <a href="https://www.google.com/maps/search/Trường+THPT+Hồ+Nghinh"
-           target="_blank" style="color:white;">
-           Ấn vào đây để đến tiệm chúng mình nhé 
-        </a>
-    </p>
+<p>📧 Email: sweet.home140126@gmail.com</p>
+<p>📞 Số điện thoại: 0230356789</p>
+<p>
+📍 
+<a href="https://www.google.com/maps/search/Trường+THPT+Hồ+Nghinh"
+target="_blank" style="color:white;">
+Ấn vào đây để đến tiệm chúng mình
+</a>
+</p>
 </footer>
 
 <div class="chat">
@@ -148,7 +185,7 @@ select,input{
 const products=[
  {name:"Bánh xoắn",price:15000,img:"banhxoan.jpg",review:"Giòn nhẹ – thơm bơ"},
  {name:"Bánh sừng bò",price:20000,img:"banhsungbo.jpg",review:"Mềm xốp – béo ngậy"},
-{name:"Bánh mì ngọt",price:17000,img:"banhmingot.jpg",review:"Ngọt dịu – dễ ăn"},
+ {name:"Bánh mì ngọt",price:17000,img:"banhmingot.jpg",review:"Ngọt dịu – dễ ăn"},
  {name:"Bánh cupcake",price:15000,img:"banhcupcake.jpg",review:"Trang trí xinh xắn"},
  {name:"Bánh kem dâu",price:25000,img:"banhkemdau.jpg",review:"Dâu tươi mát"},
  {name:"Bánh flan",price:12000,img:"banhflan.jpg",review:"Mềm mịn béo"},
@@ -156,11 +193,11 @@ const products=[
  {name:"Bánh vòng",price:18000,img:"banhvong.jpg",review:"Giòn nhẹ dễ ăn"}
 ];
 
-let cart = [];
-let total = 0;
-let points = 0;
+let cart=[];
+let total=0;
+let points=0;
 
-const menu = document.getElementById("menu");
+const menu=document.getElementById("menu");
 
 products.forEach((p,i)=>{
 menu.innerHTML+=`
@@ -172,18 +209,18 @@ menu.innerHTML+=`
 <p class="review">${p.review}</p>
 
 <label>Chọn vị:</label>
-<select id="flavor${i}">
-    <option>Vani</option>
-    <option>Socola</option>
-    <option>Dâu</option>
-    <option>Matcha</option>
+<select>
+<option>Vani</option>
+<option>Socola</option>
+<option>Dâu</option>
+<option>Matcha</option>
 </select>
 
 <label>Chọn size:</label>
 <select id="size${i}">
-    <option>Nhỏ</option>
-    <option>Vừa (+5.000đ)</option>
-    <option>Lớn (+10.000đ)</option>
+<option>Nhỏ</option>
+<option>Vừa (+5.000đ)</option>
+<option>Lớn (+10.000đ)</option>
 </select>
 
 <p class="price">${p.price} đ</p>
@@ -191,61 +228,104 @@ menu.innerHTML+=`
 
 <div class="controls">
 <button onclick="add(${i})">+</button>
-<button onclick="remove()">−</button>
+<button onclick="removeLast()">−</button>
 </div>
 </div>`;
 });
 
 function add(i){
-    let size = document.getElementById("size"+i).value;
-    let extra = 0;
+let size=document.getElementById("size"+i).value;
+let extra=0;
+if(size.includes("Vừa")) extra=5000;
+if(size.includes("Lớn")) extra=10000;
 
-    if(size.includes("Vừa")) extra = 5000;
-    if(size.includes("Lớn")) extra = 10000;
-
-    cart.push(products[i].name + " - " + size);
-    total += products[i].price + extra;
-    points += 1;
-    render();
+cart.push({name:products[i].name+" - "+size,price:products[i].price+extra});
+total+=products[i].price+extra;
+points++;
+render();
 }
 
-function remove(){
-    if(cart.length === 0) return;
+function removeLast(){
+if(cart.length===0) return;
+total-=cart[cart.length-1].price;
+cart.pop();
+points--;
+render();
+}
 
-    cart.pop();
-    total = Math.max(0, total - 15000);
-    points = Math.max(0, points - 1);
-    render();
+function removeItem(index){
+total-=cart[index].price;
+cart.splice(index,1);
+points--;
+render();
 }
 
 function render(){
-    const cartEl = document.getElementById("cart");
-    const totalEl = document.getElementById("total");
-    const pointsEl = document.getElementById("points");
-
-    if(cart.length === 0){
-        cartEl.innerHTML = "<li>Chưa có sản phẩm nào</li>";
-        totalEl.innerText = 0;
-        pointsEl.innerText = 0;
-        return;
-    }
-
-    cartEl.innerHTML = cart.map(c => `<li>${c}</li>`).join("");
-    totalEl.innerText = total;
-    pointsEl.innerText = points;
+const cartEl=document.getElementById("cart");
+if(cart.length===0){
+cartEl.innerHTML="<li>Chưa có sản phẩm nào</li>";
+}else{
+cartEl.innerHTML=cart.map((c,i)=>
+`<li>${c.name} 
+<span class="remove" onclick="removeItem(${i})">❌</span></li>`
+).join("");
 }
+document.getElementById("total").innerText=total;
+document.getElementById("points").innerText=points;
+document.getElementById("qrMoney").innerText=total;
+}
+document.getElementById("payment").addEventListener("change",e=>{
+document.getElementById("qrBox").style.display =
+e.target.value==="Chuyển khoản ngân hàng" ? "block" : "none";
+});
 
 function order(){
-    if(cart.length === 0){
-        document.getElementById("orderInfo").innerText =
-        "⚠️ Vui lòng chọn ít nhất 1 món trước khi đặt hàng!";
-        return;
-    }
-    document.getElementById("orderInfo").innerText =
-    "🎉 Đặt bánh thành công! SWEET HOME sẽ liên hệ bạn sớm nhất.";
+if(cart.length===0){
+orderInfo.innerText="⚠️ Vui lòng chọn ít nhất 1 món trước khi đặt hàng!";
+return;
 }
 
-/* RESET GIỎ HÀNG KHI LOAD TRANG */
+let name=document.getElementById("customerName").value;
+let phone=document.getElementById("customerPhone").value;
+let address=document.getElementById("customerAddress").value;
+let payment=document.getElementById("payment").value;
+
+if(!name || !phone || !address){
+orderInfo.innerText="⚠️ Vui lòng nhập đầy đủ thông tin!";
+return;
+}
+
+let orderList=cart.map(c=>`- ${c.name}: ${c.price} đ`).join("\n");
+
+let message=
+`Khách hàng: ${name}
+SĐT: ${phone}
+Địa chỉ: ${address}
+
+Đơn hàng:
+${orderList}
+
+Tổng tiền: ${total} đ
+Thanh toán: ${payment}`;
+
+emailjs.send(
+"service_ragx4vu",
+"template_aewm9ke",
+{
+name:name,
+message:message
+}
+).then(()=>{
+orderInfo.innerText="🎉 Đặt bánh thành công! Đơn đã gửi qua email.";
+cart=[];
+total=0;
+points=0;
+render();
+},()=>{
+orderInfo.innerText="❌ Gửi đơn thất bại. Vui lòng thử lại!";
+});
+}
+
 render();
 </script>
 
